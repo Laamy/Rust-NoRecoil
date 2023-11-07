@@ -44,7 +44,7 @@ class Program
         {
             if (Active)
             {
-                if (akStopwatch.ElapsedMilliseconds > (133 / 3)) // gonna smooth it out 6 times per bullet
+                if (akStopwatch.ElapsedMilliseconds > (133 / 3)) // gonna smooth it out 3 times per bullet
                 {
                     akStopwatch = Stopwatch.StartNew(); // reset timer for next bullet
                     // Console.WriteLine("Bullet fired"); // debugging stuff
