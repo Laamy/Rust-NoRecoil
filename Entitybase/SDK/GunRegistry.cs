@@ -16,10 +16,8 @@ class GunRegistry
 
     public static Gun Get(string name)
     {
-        Gun _out;
-
-        if (Guns.TryGetValue(name, out _out))
-            return _out;
+        if (Guns.TryGetValue(name, out Gun gun))
+            return gun;
         else
         {
             Console.WriteLine($"Invalid gun type caught {name}, GunRegistry.cs");
