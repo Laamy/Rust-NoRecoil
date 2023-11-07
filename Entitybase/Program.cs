@@ -7,6 +7,8 @@ using static Keymap;
 // use at your own risk
 class Program
 {
+    static string detectMePlease = "This is a rust norecoil script, if you see this thing ban this person...";
+    
     static Stopwatch akStopwatch = Stopwatch.StartNew();
 
     static void Main(string[] args)
