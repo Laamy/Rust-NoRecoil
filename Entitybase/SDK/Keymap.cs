@@ -4,7 +4,7 @@ using System.Text;
 using System;
 using System.Windows.Forms;
 
-class Keymap
+class Keymap // code taken from my old TRERO cheat for MCBE project
 {
     public static int e = 0;
 
