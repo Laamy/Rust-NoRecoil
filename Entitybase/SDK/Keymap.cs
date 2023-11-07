@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 class Keymap // code taken from my old TRERO cheat for MCBE project
 {
@@ -74,6 +75,11 @@ class Keymap // code taken from my old TRERO cheat for MCBE project
     public static void MoveMouse(int dx, int dy) // deltax, deltay
     {
         mouse_event(0x1, dx, dy, 0, 0);
+    }
+
+    public static void MoveMouse(Point p1)
+    {
+        MoveMouse(p1.X, p1.Y);
     }
 
     [DllImport("user32.dll")]

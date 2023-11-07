@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using static Keymap;
@@ -7,8 +8,6 @@ using static Keymap;
 // use at your own risk
 class Program
 {
-    static string detectMePlease = "This is a rust norecoil script, if you see this thing ban this person...";
-    
     static Stopwatch akStopwatch = Stopwatch.StartNew();
 
     static void Main(string[] args)
@@ -51,8 +50,13 @@ class Program
                     // Console.WriteLine("Bullet fired"); // debugging stuff
 
                     // bullet is firing so its time to adjust for the recoil AK gives
-                    if (!Zoomed) MoveMouse(-5, 8); // these are the best offsets I found for not zoomed
-                    else MoveMouse(-6, 12); // these are the best offsets I found for zoomed
+                    //if (!Zoomed) MoveMouse(-5, 8); // these are the best offsets I found for not zoomed
+                    //else MoveMouse(-6, 12); // these are the best offsets I found for zoomed
+
+                    Point zoomVec = new Point(-3, 7);
+                    Point nonZoomVec = new Point(-2, 4);
+
+                    MoveMouse(Zoomed ? zoomVec : nonZoomVec);
                 }
             }
         }
