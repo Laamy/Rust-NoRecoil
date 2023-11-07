@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Linq;
 
 class GunRegistry
 {
@@ -11,17 +12,7 @@ class GunRegistry
         { "M29 Pistol", new Gun(new Point(-1, 12), new Point(-1, 10)) },
     };
 
-    public static Gun Get(int index)
-    {
-        int _i = 0;
-        foreach (var GunPair in Guns)
-        {
-            if (_i == index)
-                return GunPair.Value;
-            _i++;
-        }
-        return null;
-    }
+    public static Gun Get(int index) => Guns.ElementAtOrDefault(index).Value;
 
     public static Gun Get(string name)
     {
