@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+
 using static Keymap;
 
 // use at your own risk
 class Program
 {
     static Stopwatch akStopwatch = Stopwatch.StartNew();
+
+    public static int selected = 0;
 
     static void Main(string[] args)
     {
@@ -19,7 +21,21 @@ class Program
         while (true)
         {
             Thread.Sleep(1);
-            handle.KeyTick();
+            handle.KeyTick(); // tick the global keymap hook
+
+            Console.SetCursorPosition(0, 0);
+            Console.CursorVisible = false;
+
+            int cur = 0;
+            foreach (var GunPair in GunRegistry.Guns)
+            {
+                string key = GunPair.Key;
+
+                if (selected == cur)
+                    Console.WriteLine($"[X] {key}");
+                else Console.WriteLine($"[ ] {key}");
+                cur++;
+            }
         }
     }
 
@@ -28,6 +44,24 @@ class Program
 
     private static void OnKeyEvent(object sender, KeyEvent e) // made on UKN (DONT USE)
     {
+        // arrow keys for gun selection here!
+        if (e.vkey == VKeyCodes.KeyDown)
+        {
+            if (e.key == Keys.Up)
+            {
+                selected--;
+                if (selected < 0)
+                    selected = GunRegistry.Guns.Count - 1;
+            }
+            else if (e.key == Keys.Down)
+            {
+                selected++;
+                if (selected >= GunRegistry.Guns.Count)
+                    selected = 0;
+            }
+        }
+
+        // actual norecoil stuff here
         if (e.key == Keys.LControlKey) // lets store if LCTRL is held or not so we know if we should move the mouse
         {
             if (e.vkey == VKeyCodes.KeyDown) Active = true;
@@ -50,7 +84,7 @@ class Program
                     // Console.WriteLine("Bullet fired"); // debugging stuff
 
                     // bullet is firing so its time to adjust for the recoil AK gives
-                    Gun AK = GunRegistry.Get("Assault Rifle");
+                    Gun AK = GunRegistry.Get(selected);
 
                     MoveMouse(Zoomed ? AK.RecoilVecZoom : AK.RecoilVec);
                 }

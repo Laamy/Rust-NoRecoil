@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Drawing;
 
 class GunRegistry
@@ -10,6 +11,18 @@ class GunRegistry
         { "M29 Pistol", new Gun(new Point(-1, 12), new Point(-1, 10)) },
     };
 
+    public static Gun Get(int index)
+    {
+        int _i = 0;
+        foreach (var GunPair in Guns)
+        {
+            if (_i == index)
+                return GunPair.Value;
+            _i++;
+        }
+        return null;
+    }
+
     public static Gun Get(string name)
     {
         Gun _out;
@@ -18,7 +31,7 @@ class GunRegistry
             return _out;
         else
         {
-            Console.WriteLine($"Invalid gun type caught {name}, line 19, GunRegistry.cs");
+            Console.WriteLine($"Invalid gun type caught {name}, GunRegistry.cs");
             return null;
         }
     }
