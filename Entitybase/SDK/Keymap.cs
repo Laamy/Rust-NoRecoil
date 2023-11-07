@@ -2,8 +2,6 @@
 using System.Runtime.InteropServices;
 using System.Text;
 using System;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Windows.Forms;
 
 class Keymap
@@ -73,6 +71,11 @@ class Keymap
         }
     }
 
+    public static void MoveMouse(int dx, int dy) // deltax, deltay
+    {
+        mouse_event(0x1, dx, dy, 0, 0);
+    }
+
     [DllImport("user32.dll")]
     public static extern bool GetAsyncKeyState(char v);
 
@@ -88,12 +91,8 @@ class Keymap
     [DllImport("user32.dll")]
     private static extern IntPtr GetForegroundWindow();
 
-    public static bool IsMinecraftFocused()
-    {
-        var sb = new StringBuilder("Minecraft".Length + 1);
-        GetWindowText(GetForegroundWindow(), sb, "Minecraft".Length + 1);
-        return string.Compare(sb.ToString(), "Minecraft", StringComparison.Ordinal) == 0;
-    }
+    [DllImport("user32.dll")]
+    public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 }
 
 public class KeyEvent : EventArgs // flare's key events
