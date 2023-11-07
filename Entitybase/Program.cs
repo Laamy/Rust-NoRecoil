@@ -33,7 +33,7 @@ class Program
             else if (e.vkey == VKeyCodes.KeyUp) Active = false;
         }
 
-        if (e.key == Keys.LButton) // lets also store if we're zoomed in or not so we can adjust the movements for that
+        if (e.key == Keys.RButton) // lets also store if we're zoomed in or not so we can adjust the movements for that
         {
             if (e.vkey == VKeyCodes.KeyDown) Zoomed = true;
             else if (e.vkey == VKeyCodes.KeyUp) Zoomed = false;
@@ -43,14 +43,14 @@ class Program
         {
             if (Active)
             {
-                if (akStopwatch.ElapsedMilliseconds > (133 / 6)) // gonna smooth it out 6 times per bullet
+                if (akStopwatch.ElapsedMilliseconds > (133 / 3)) // gonna smooth it out 6 times per bullet
                 {
                     akStopwatch = Stopwatch.StartNew(); // reset timer for next bullet
                     // Console.WriteLine("Bullet fired"); // debugging stuff
 
                     // bullet is firing so its time to adjust for the recoil AK gives
-                    if (!Zoomed) MoveMouse(-2, 3); // these are the best offsets I found for not zoomed
-                    else MoveMouse(-2, 5); // these are the best offsets I found for zoomed
+                    if (!Zoomed) MoveMouse(-5, 8); // these are the best offsets I found for not zoomed
+                    else MoveMouse(-6, 12); // these are the best offsets I found for zoomed
                 }
             }
         }

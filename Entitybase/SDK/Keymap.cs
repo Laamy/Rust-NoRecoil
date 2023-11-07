@@ -91,7 +91,7 @@ class Keymap // code taken from my old TRERO cheat for MCBE project
     [DllImport("user32.dll")]
     private static extern IntPtr GetForegroundWindow();
 
-    [DllImport("user32.dll")]
+    [DllImport("user32.dll")] // this might be unsafe, might switch to these.. https://github.com/michaelnoonan/inputsimulator/blob/master/WindowsInput/Native/NativeMethods.cs
     public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 }
 
