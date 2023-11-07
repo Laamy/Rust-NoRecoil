@@ -50,13 +50,8 @@ class Program
                     // Console.WriteLine("Bullet fired"); // debugging stuff
 
                     // bullet is firing so its time to adjust for the recoil AK gives
-                    //if (!Zoomed) MoveMouse(-5, 8); // these are the best offsets I found for not zoomed
-                    //else MoveMouse(-6, 12); // these are the best offsets I found for zoomed
 
-                    Point zoomVec = new Point(-3, 7);
-                    Point nonZoomVec = new Point(-2, 4);
-
-                    MoveMouse(Zoomed ? zoomVec : nonZoomVec);
+                    MoveMouse(Zoomed ? Guns.AK.RecoilVecZoom : Guns.AK.RecoilVec);
                 }
             }
         }
