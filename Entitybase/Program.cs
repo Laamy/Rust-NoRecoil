@@ -50,8 +50,9 @@ class Program
                     // Console.WriteLine("Bullet fired"); // debugging stuff
 
                     // bullet is firing so its time to adjust for the recoil AK gives
+                    Gun AK = GunRegistry.Get("Assault Rifle");
 
-                    MoveMouse(Zoomed ? Guns.AK.RecoilVecZoom : Guns.AK.RecoilVec);
+                    MoveMouse(Zoomed ? AK.RecoilVecZoom : AK.RecoilVec);
                 }
             }
         }

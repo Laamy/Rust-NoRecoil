@@ -45,9 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Guns.cs" />
+    <Compile Include="SDK\GunRegistry.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SDK\Gun.cs" />
     <Compile Include="SDK\Keymap.cs" />
   </ItemGroup>
   <ItemGroup>
