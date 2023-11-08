@@ -35,7 +35,7 @@ class GunRegistry // these are STAND STILL VALUES, moving changes recoil slightl
             }
         },
         {
-            "Revolver", new Gun() // I'll write some code to smooth this out later
+            "Revolver", new Gun()
             {
                 Firerate = 343,
                 Repeatable = false,
