@@ -10,6 +10,7 @@ class GunRegistry
         { "Assault Rifle", new Gun(new Point(-2, 4), new Point(-3, 7)) },
         { "M92 Pistol", new Gun(new Point(-1, 12), new Point(-1, 10)) },
         { "MP5", new Gun(new Point(0, 4), new Point(0, 3)) }, // 3 for slightly up 4 for slightly down I need a better way to measure recoil then pixels
+        { "Revolver", new Gun(new Point(0, 7), new Point(0, 5)) },
     };
 
     public static Gun Get(int index) => Guns.ElementAtOrDefault(index).Value;
