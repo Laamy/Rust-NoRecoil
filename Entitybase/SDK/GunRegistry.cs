@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-class GunRegistry
+class GunRegistry // these are STAND STILL VALUES, moving changes recoil slightly.. might try adjust for it later.
 {
     public static Dictionary<string, Gun> Guns = new Dictionary<string, Gun>()
     {
@@ -17,11 +17,20 @@ class GunRegistry
             }
         },
         {
+            "MP5", new Gun()
+            {
+                Firerate = 600,
+                Repeatable = true,
+                RecoilVec = new Point(0, 3),
+                RecoilVecZoom = new Point(0, 3)
+            }
+        },
+        {
             "M92 Pistol", new Gun() // I'll write some code to smooth this out later
             {
                 Firerate = 400,
                 Repeatable = false,
-                RecoilVec = new Point(-3, 36),
+                RecoilVec = new Point(-3, 23),
                 RecoilVecZoom = new Point(0, 19),
             }
         }
