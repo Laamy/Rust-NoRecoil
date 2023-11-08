@@ -8,7 +8,7 @@ using static Keymap;
 // use at your own risk
 class Program
 {
-    static Stopwatch akStopwatch = Stopwatch.StartNew();
+    static Stopwatch bulletStopwatch = Stopwatch.StartNew();
 
     public static int selected = 0;
 
@@ -74,19 +74,32 @@ class Program
             else if (e.vkey == VKeyCodes.KeyUp) Zoomed = false;
         }
 
-        if (e.key == Keys.LButton && e.vkey == VKeyCodes.KeyHeld) // currently firing the gun
+        Gun SelGun = GunRegistry.Get(selected);
+
+        if (SelGun.Repeatable)
         {
-            if (Active)
+            if (e.key == Keys.LButton && e.vkey == VKeyCodes.KeyHeld) // currently firing the gun
             {
-                if (akStopwatch.ElapsedMilliseconds > (133 / 3)) // gonna smooth it out 3 times per bullet
+                if (Active)
                 {
-                    akStopwatch = Stopwatch.StartNew(); // reset timer for next bullet
-                    // Console.WriteLine("Bullet fired"); // debugging stuff
+                    if (bulletStopwatch.ElapsedMilliseconds > (60000 / SelGun.Firerate / 3)) // gonna smooth it out 3 times per bullet
+                    {
+                        bulletStopwatch = Stopwatch.StartNew(); // reset timer for next bullet
+                        // Console.WriteLine("Bullet fired"); // debugging stuff
 
-                    // bullet is firing so its time to adjust for the recoil AK gives
-                    Gun AK = GunRegistry.Get(selected);
-
-                    MoveMouse(Zoomed ? AK.RecoilVecZoom : AK.RecoilVec);
+                        // bullet is firing so its time to adjust for the recoil AK gives
+                        MoveMouse(Zoomed ? SelGun.RecoilVecZoom : SelGun.RecoilVec);
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (e.key == Keys.LButton && e.vkey == VKeyCodes.KeyDown) // currently firing the gun
+            {
+                if (Active)
+                {
+                    MoveMouse(Zoomed ? SelGun.RecoilVecZoom : SelGun.RecoilVec);
                 }
             }
         }
