@@ -17,6 +17,15 @@ class GunRegistry // these are STAND STILL VALUES, moving changes recoil slightl
             }
         },
         {
+            "M92 Pistol", new Gun() // I'll write some code to smooth this out later
+            {
+                Firerate = 400,
+                Repeatable = false,
+                RecoilVec = new Point(-3, 23),
+                RecoilVecZoom = new Point(0, 19),
+            }
+        },
+        {
             "MP5", new Gun()
             {
                 Firerate = 600,
@@ -26,12 +35,12 @@ class GunRegistry // these are STAND STILL VALUES, moving changes recoil slightl
             }
         },
         {
-            "M92 Pistol", new Gun() // I'll write some code to smooth this out later
+            "Revolver", new Gun() // I'll write some code to smooth this out later
             {
-                Firerate = 400,
+                Firerate = 343,
                 Repeatable = false,
-                RecoilVec = new Point(-3, 23),
-                RecoilVecZoom = new Point(0, 19),
+                RecoilVec = new Point(0, 11),
+                RecoilVecZoom = new Point(0, 10),
             }
         }
     };
