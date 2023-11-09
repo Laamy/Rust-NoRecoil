@@ -36,9 +36,32 @@ class Program
 
     public static Font font = new Font("Arial", 16);
 
+    public static void DrawText(Graphics g, string text, Color colour, PointF point)
+    {
+        Bitmap textBitmap = new Bitmap(Overlay.handle.ClientSize.Width, Overlay.handle.ClientSize.Height);
+
+        using (Graphics textGraphics = Graphics.FromImage(textBitmap))
+        {
+            // Set up font and brushes for rendering text
+            Brush textBrush = new SolidBrush(colour); // Set your desired text color
+
+            // Draw the text onto the bitmap without background
+            textGraphics.Clear(Color.Transparent);
+            textGraphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            textGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            textGraphics.DrawString(text, font, textBrush, point);
+        }
+
+        // Copy the bitmap onto the form
+        g.DrawImage(textBitmap, 0, 0);
+    }
+
     public static void OnUpdate(object sender, PaintEventArgs e)
     {
         Graphics g = e.Graphics;
+
+        g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
 
         int centerX = e.ClipRectangle.Width / 2;
         int centerY = e.ClipRectangle.Height / 2;
@@ -49,17 +72,17 @@ class Program
 
         g.DrawLine(pen, centerX, centerY - 10, centerX, centerY + 10);
 
-        float y = 10;
+        int y = 2;
         int _i = 0;
 
         foreach (var gun in GunRegistry.Guns)
         {
             if (_i == selected)
-                g.DrawString($"{gun.Key}", font, new SolidBrush(Color.Green), new PointF(0, y));
+                DrawText(g, $"{gun.Key}", Color.Green, new Point(0, y));
             else
-                g.DrawString($"{gun.Key}", font, new SolidBrush(Color.Red), new PointF(0, y));
+                DrawText(g, $"{gun.Key}", Color.Red, new Point(0, y));
 
-            y += g.MeasureString($"{gun.Key}", font).Height + 10f;
+            y += TextRenderer.MeasureText($"{gun.Key}", font).Height + 2;
             _i++;
         }
     }

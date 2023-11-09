@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Drawing;
 
 using static RustGame;
 using static User32;
 using static Debug;
+using System.Drawing;
 
 class Overlay : Form
 {
@@ -22,7 +22,7 @@ class Overlay : Form
 
         InitializeComponents();
 
-        Log("Initailizing Paint Hooks..");
+        Log("Initailizing Paint hooks..");
         Paint += Program.OnUpdate;
 
         Log("Initailizing Delegate..");
