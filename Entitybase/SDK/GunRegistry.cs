@@ -13,7 +13,7 @@ class GunRegistry // these are STAND STILL VALUES, moving changes recoil slightl
                 Firerate = 450, // ingame firerate (rust tells you)
                 Repeatable = true, // does it repeatedly shoot when held?
                 RecoilVec = new Point(-2, 4), // in pixels for a 1K monitor (I might scale this depending on the monitor later..)
-                RecoilVecZoom = new Point(-3, 7) // in pixels for a 1K monitor ZOOMED (might scale too)
+                RecoilVecZoom = new Point(-3, 6) // in pixels for a 1K monitor ZOOMED (might scale too)
             }
         },
         {

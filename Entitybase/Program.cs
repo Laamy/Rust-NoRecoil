@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using static Keymap;
@@ -16,33 +18,56 @@ class Program
     {
         new Keymap(); // init
 
-        globalKeyEvent += OnKeyEvent;
+        globalKeyEvent += OnKeyEvent;// global key events
 
-        while (true)
+        RustGame.OpenGame();// store important info about rust
+
+        Task.Factory.StartNew(() =>
         {
-            Thread.Sleep(1);
-            handle.KeyTick(); // tick the global keymap hook
-
-            Console.SetCursorPosition(0, 0);
-            Console.CursorVisible = false;
-
-            int cur = 0;
-            foreach (var GunPair in GunRegistry.Guns)
+            while (true)
             {
-                string key = GunPair.Key;
-
-                if (selected == cur)
-                    Console.WriteLine($"[X] {key}");
-                else Console.WriteLine($"[ ] {key}");
-                cur++;
+                Thread.Sleep(1);
+                handle.KeyTick(); // tick the global keymap hook
             }
+        }); // global keyhooks thread
+
+        Application.Run(new Overlay());// visuals
+    }
+
+    public static Font font = new Font("Arial", 16);
+
+    public static void OnUpdate(object sender, PaintEventArgs e)
+    {
+        Graphics g = e.Graphics;
+
+        int centerX = e.ClipRectangle.Width / 2;
+        int centerY = e.ClipRectangle.Height / 2;
+
+        Pen pen = new Pen(Color.Red, 2);
+
+        g.DrawLine(pen, centerX - 10, centerY, centerX + 10, centerY);
+
+        g.DrawLine(pen, centerX, centerY - 10, centerX, centerY + 10);
+
+        float y = 10;
+        int _i = 0;
+
+        foreach (var gun in GunRegistry.Guns)
+        {
+            if (_i == selected)
+                g.DrawString($"{gun.Key}", font, new SolidBrush(Color.Green), new PointF(0, y));
+            else
+                g.DrawString($"{gun.Key}", font, new SolidBrush(Color.Red), new PointF(0, y));
+
+            y += g.MeasureString($"{gun.Key}", font).Height + 10f;
+            _i++;
         }
     }
 
     static bool Active = false;
     static bool Zoomed = false;
 
-    private static void OnKeyEvent(object sender, KeyEvent e) // made on UKN (DONT USE)
+    public static void OnKeyEvent(object sender, KeyEvent e) // made on UKN (DONT USE)
     {
         // arrow keys for gun selection here!
         if (e.vkey == VKeyCodes.KeyDown)
@@ -58,6 +83,11 @@ class Program
                 selected++;
                 if (selected >= GunRegistry.Guns.Count)
                     selected = 0;
+            }
+
+            if (Overlay.handle != null)
+            {
+                Overlay.handle.Invalidate();
             }
         }
 
