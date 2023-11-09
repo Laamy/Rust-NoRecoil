@@ -6,4 +6,4 @@ do not cry in issues that it doesnt work or shows up as a virus as i really dont
 
 I made this because i got curious on how well a script could adjust for the random recoil without scanning the screen
 
-Created this on UKN using an icey assult rifle
+Created this on UKN using an icey assault rifle
